@@ -1,0 +1,68 @@
+### Ultralytics library — what it does
+
+Ultralytics is a Python library that provides a unified, high-level interface for training, evaluating, running inference, tracking, and exporting YOLO models (notably YOLOv8, plus variants for detect/segment/pose/classify). It includes both a Python API and a CLI.
+
+- **Core tasks**
+  - **Detection**: find objects and draw bounding boxes.
+  - **Segmentation**: pixel-precise masks.
+  - **Pose**: keypoint estimation.
+  - **Classification**: image-level labels.
+  - **Tracking**: multi-object tracking over video (e.g., ByteTrack/BoT-SORT).
+
+- **Key capabilities**
+  - **Pretrained + custom training**: load `yolov8*.pt` or your own `best.pt`, train with a simple `data.yaml`.
+  - **Validation & metrics**: mAP, precision/recall, confusion matrix, PR/F1 curves.
+  - **Inference**: on images, folders, webcams, and videos with automatic visualization and saving.
+  - **Export**: ONNX, TensorRT, CoreML, OpenVINO, TFLite, etc.
+  - **Device management**: auto CPU/GPU selection, `device=0,1,...` for CUDA.
+  - **Logging/checkpoints**: organized runs, resumable training, basic callbacks.
+
+- **Install**
+```bash
+pip install ultralytics
+```
+
+- **Python API (quick examples)**
+```python
+from ultralytics import YOLO
+
+# 1) Detection – pretrained
+model = YOLO('yolov8n.pt')
+model.predict(source='image1.jpg', conf=0.25, save=True)
+
+# 2) Detection – your custom weights
+custom = YOLO('AllFiles_Pothole/Model_Weights_File/best.pt')
+custom.predict(source='demo.mp4', conf=0.25, save=True)
+
+# 3) Train (custom dataset via data.yaml)
+model = YOLO('yolov8n.pt')
+model.train(data='data.yaml', epochs=50, imgsz=640, device=0)
+
+# 4) Validate
+model.val(data='data.yaml')
+
+# 5) Export
+model.export(format='onnx', dynamic=True)
+```
+
+- **CLI equivalents**
+```bash
+# Predict
+yolo task=detect mode=predict model=yolov8n.pt source=image1.jpg conf=0.25
+
+# Train
+yolo task=detect mode=train model=yolov8n.pt data=data.yaml epochs=50 imgsz=640 device=0
+
+# Export
+yolo mode=export model=yolov8n.pt format=onnx dynamic=True
+```
+
+- **Model variants**
+  - Detection: `yolov8n.pt/s/m/l/x`
+  - Segmentation: `yolov8n-seg.pt/...`
+  - Pose: `yolov8n-pose.pt/...`
+  - Classification: `yolov8n-cls.pt/...`
+
+In short, Ultralytics wraps the full YOLO workflow—load, train, validate, predict, track, and export—into simple Python and CLI commands, making it fast to go from dataset to deployable models.
+
+- Pushed your code to `YOLO-computer-vision`; now explained Ultralytics’s purpose and provided minimal API/CLI examples aligned with your files (`image1.jpg`, `demo.mp4`, `best.pt`).
