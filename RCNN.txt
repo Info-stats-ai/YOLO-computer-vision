@@ -1,0 +1,33 @@
+Region Based Convolutional Neural Network
+(R-CNN)
+R-CNN is based on the following steps:
+• Generate a set of region proposals using selective search algorithm for the bounding boxes.
+Run the images in the bounding boxes through the pretrained
+AlexNet.
+• Finally an SVM to see what object the image has in the bounding box.
+• Run the bounding box through a Linear Regression model to output detected coordinates for the box once the object has been classified.
+Primary Challenge with R-CNN
+• Very slow as it has to classify 2000 regions per image.
+• It cannot be implemented real time as it takes around 47 seconds
+for each test image.
+
+
+Fast R-CNN
+• In R-CNN we identify different regions in the image and then pass them to the feature extractor
+In Fast R-CNN we send the whole image through the CNN (feature extractor) and then in the feature space we have the Region Proposal Method.
+• In 2015, the authors of R-CNN came with the idea of Fast R-CNN to address the drawbacks in the R-CNN.
+• In Fast R-CNN, the input image is passed to the Convolutional Neural Network (feature extractor to generate convolutional feature map and from the convolutional feature map we identify the region of proposals.
+The reason why Fast R-CNN is faster than the R-CNN is that we dont need to feed 2000 region proposals to the Convolutional Neural Network each time. Instead the convolution operation is done once per image and the feature map is generated from it.
+Faster R-CNN
+• R-CNN and Fast R-CNN use selective search algorithm to find out the region proposals which is slow in terms of processing the regions and a time-consuming process.
+• Faster R-CNN is an object detection algorithm which eliminates the use of Selective Search Algorithm and let the network learn the region proposals.
+• Similar to Fast R-CNN, the image is provided as an input to a convolutional network which provides a convolutional feature map. Instead of using selective search algorithm on the feature map to identify the region proposals, a separate network is used to predict the region proposals.
+• The key difference between the Faster R-CNN and the prior object detection algorithms R-CNN and Fast R-CNN is the Region Proposal
+Network.
+10
+Mask R-CNN
+Mask R-CNN is built using Faster R-CNN.
+The main idea behind Mask R-CNN is to extend Faster R-CNN to pixel level segmentation.
+• In addition to bounding boxes and class label. Mask R-CNN outputs an object mask.
+• In Mask R-CNN, a fully convolutional Neural Network is added at the top of CNN features of Faster R-CNN which generates the mask output.
+• Mask R-CNN uses a trick called ROl Align to locate relevant areas down to pixel level. The backbone of Mask R-CNN is 
